@@ -1,6 +1,27 @@
+'use client'
+import { signUp } from "@/lib/auth-client";
 import Link from "next/link";
 
 const SignUpPage = () => {
+
+    const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.currentTarget)
+        const userData = Object.fromEntries(formData.entries())
+        console.log(userData)
+        const { data: resData, error } = await signUp.email({
+            name: userData.name as string,
+            email: userData.email as string,
+            password: userData.password as string,
+        })
+        if (error) {
+            console.error(error.message);
+            return;
+        }
+        console.log(resData);
+    }
+
     return (
         <div className="flex min-h-screen">
             {/* Brand panel */}
@@ -93,7 +114,7 @@ const SignUpPage = () => {
                         </p>
                     </header>
 
-                    <form className="space-y-5" action="#">
+                    <form className="space-y-5" onSubmit={handleSignUp}>
                         {/* Full name */}
                         <fieldset className="fieldset">
                             <label className="label" htmlFor="name">
