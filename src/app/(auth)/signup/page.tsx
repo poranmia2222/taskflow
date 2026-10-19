@@ -23,7 +23,7 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="flex min-h-screen">
+        <main className="flex min-h-screen">
             {/* Brand panel */}
             <aside className="hidden lg:flex relative flex-1 flex-col justify-between overflow-hidden bg-secondary p-12 text-secondary-content">
                 {/* Decorative shapes */}
@@ -95,7 +95,7 @@ const SignUpPage = () => {
             </aside>
 
             {/* Form panel */}
-            <main className="flex flex-1 items-center justify-center p-6 sm:p-12">
+            <section className="flex flex-1 items-center justify-center p-6 sm:p-12">
                 <div className="w-full max-w-sm">
                     <Link
                         href="/"
@@ -244,8 +244,8 @@ const SignUpPage = () => {
                         </Link>
                     </p>
                 </div>
-            </main>
-        </div>
+            </section>
+        </main>
     );
 };
 

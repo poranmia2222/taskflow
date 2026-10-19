@@ -1,8 +1,26 @@
+'use client'
+import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
 
 const SignInPage = () => {
+    const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const formData = new FormData(e.currentTarget)
+            const userData = Object.fromEntries(formData.entries())
+            console.log(userData)
+            const { data: resData, error } = await signIn.email({
+                email: userData.email as string,
+                password: userData.password as string,
+                callbackURL: '/'
+            })
+            if (error) {
+                console.error(error.message);
+                return;
+            }
+            console.log(resData);
+        }
     return (
-        <div className="flex min-h-screen">
+        <main className="flex min-h-screen">
             {/* Brand panel */}
             <aside className="hidden lg:flex relative flex-1 flex-col justify-between overflow-hidden bg-primary p-12 text-primary-content">
                 {/* Decorative shapes */}
@@ -53,7 +71,7 @@ const SignInPage = () => {
             </aside>
 
             {/* Form panel */}
-            <main className="flex flex-1 items-center justify-center p-6 sm:p-12">
+            <section className="flex flex-1 items-center justify-center p-6 sm:p-12">
                 <div className="w-full max-w-sm">
                     <Link
                         href="/"
@@ -72,7 +90,7 @@ const SignInPage = () => {
                         </p>
                     </header>
 
-                    <form className="space-y-5" action="#">
+                    <form className="space-y-5"  onSubmit={handleSignIn}>
                         {/* Email */}
                         <fieldset className="fieldset">
                             <label className="label" htmlFor="email">
@@ -163,8 +181,8 @@ const SignInPage = () => {
                         </Link>
                     </p>
                 </div>
-            </main>
-        </div>
+            </section>
+        </main>
     );
 };
 
