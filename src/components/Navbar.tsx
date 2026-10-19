@@ -1,4 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import UserAvatar from "@/components/UserAvatar";
+import { signOut, useSession } from "@/lib/auth-client";
 
 const NAV_LINKS = [
     { label: "Home", href: "/" },
@@ -8,7 +14,28 @@ const NAV_LINKS = [
     { label: "FAQ", href: "/faq" },
 ];
 
+const PROFILE_LINKS = [
+    { label: "Profile", href: "/profile" },
+    { label: "Settings", href: "/settings" },
+];
+
 const Navbar = () => {
+    const router = useRouter();
+    const { data: session, isPending } = useSession();
+    const [isSigningOut, setSigningOut] = useState(false);
+
+    const user = session?.user;
+    // `useSession` may expose an image field depending on the configured plugins.
+    const userImage = (user as { image?: string | null } | undefined)?.image;
+
+    const handleSignOut = async () => {
+        setSigningOut(true);
+        await signOut();
+        setSigningOut(false);
+        router.push("/signin");
+        router.refresh();
+    };
+
     return (
         <header className="navbar sticky top-0 z-50 border-b border-base-200 bg-base-100/90 shadow-sm backdrop-blur">
             {/* Part 1: Logo + mobile menu toggle */}
@@ -43,14 +70,57 @@ const Navbar = () => {
                         <li>
                             <div className="divider my-1" />
                         </li>
-                        <li>
-                            <Link href="/signin">Sign in</Link>
-                        </li>
-                        <li>
-                            <Link href="/signup" className="btn btn-primary btn-sm mt-1">
-                                Get started — Free
-                            </Link>
-                        </li>
+
+                        {user ? (
+                            <>
+                                <li>
+                                    <div className="flex items-center gap-3 px-3 py-2">
+                                        <UserAvatar
+                                            name={user.name}
+                                            src={userImage}
+                                            size="size-9"
+                                        />
+                                        <div className="min-w-0">
+                                            <p className="truncate text-sm font-semibold">
+                                                {user.name}
+                                            </p>
+                                            <p className="truncate text-xs text-base-content/60">
+                                                {user.email}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                {PROFILE_LINKS.map((link) => (
+                                    <li key={link.href}>
+                                        <Link href={link.href}>{link.label}</Link>
+                                    </li>
+                                ))}
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={handleSignOut}
+                                        disabled={isSigningOut}
+                                        className="text-error"
+                                    >
+                                        {isSigningOut ? "Signing out…" : "Sign out"}
+                                    </button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link href="/signin">Sign in</Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/signup"
+                                        className="btn btn-primary btn-sm mt-1"
+                                    >
+                                        Get started — Free
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
 
@@ -79,12 +149,71 @@ const Navbar = () => {
 
             {/* Part 3: Auth actions */}
             <div className="navbar-end gap-2">
-                <Link href="/signin" className="btn btn-ghost hidden sm:inline-flex">
-                    Sign in
-                </Link>
-                <Link href="/signup" className="btn btn-primary">
-                    Get started — Free
-                </Link>
+                {isPending ? (
+                    // Placeholder keeps the navbar from shifting once the session loads.
+                    <span
+                        aria-hidden
+                        className="skeleton size-9 rounded-full"
+                    />
+                ) : user ? (
+                    <div className="dropdown dropdown-end">
+                        <button
+                            type="button"
+                            tabIndex={0}
+                            aria-label="Account menu"
+                            className="btn btn-ghost btn-circle avatar"
+                        >
+                            <UserAvatar name={user.name} src={userImage} size="size-9" />
+                        </button>
+                        <ul
+                            tabIndex={0}
+                            className="menu dropdown-content z-50 mt-3 w-60 rounded-box bg-base-100 p-2 shadow-lg ring-1 ring-base-200"
+                        >
+                            <li className="menu-title">
+                                <div className="flex items-center gap-3">
+                                    <UserAvatar
+                                        name={user.name}
+                                        src={userImage}
+                                        size="size-10"
+                                        textSize="text-sm"
+                                    />
+                                    <div className="min-w-0">
+                                        <p className="truncate text-sm font-semibold text-base-content">
+                                            {user.name}
+                                        </p>
+                                        <p className="truncate text-xs text-base-content/60">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            {PROFILE_LINKS.map((link) => (
+                                <li key={link.href}>
+                                    <Link href={link.href}>{link.label}</Link>
+                                </li>
+                            ))}
+                            <li>
+                                <button
+                                    type="button"
+                                    onClick={handleSignOut}
+                                    disabled={isSigningOut}
+                                    className="text-error"
+                                >
+                                    {isSigningOut ? "Signing out…" : "Sign out"}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                ) : (
+                    <>
+                        <Link href="/signin" className="btn btn-ghost hidden sm:inline-flex">
+                            Sign in
+                        </Link>
+                        <Link href="/signup" className="btn btn-primary">
+                            Get started — Free
+                        </Link>
+                    </>
+                )}
             </div>
         </header>
     );
