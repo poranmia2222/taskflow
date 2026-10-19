@@ -1,2 +1,6 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+/* Two themes only: light is the default, dark is opt-in via `data-theme`. */
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}

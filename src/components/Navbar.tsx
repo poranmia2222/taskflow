@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 import UserAvatar from "@/components/UserAvatar";
 import { signOut, useSession } from "@/lib/auth-client";
 
@@ -69,6 +70,10 @@ const Navbar = () => {
                         ))}
                         <li>
                             <div className="divider my-1" />
+                        </li>
+
+                        <li>
+                            <ThemeToggle variant="menu" />
                         </li>
 
                         {user ? (
@@ -148,7 +153,8 @@ const Navbar = () => {
             </div>
 
             {/* Part 3: Auth actions */}
-            <div className="navbar-end gap-2">
+            <div className="navbar-end gap-1">
+                <ThemeToggle />
                 {isPending ? (
                     // Placeholder keeps the navbar from shifting once the session loads.
                     <span
