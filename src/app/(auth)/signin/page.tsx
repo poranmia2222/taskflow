@@ -3,6 +3,7 @@ import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
 
 const SignInPage = () => {
+
     const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             const formData = new FormData(e.currentTarget)
@@ -19,6 +20,21 @@ const SignInPage = () => {
             }
             console.log(resData);
         }
+
+     const signInWithGoogle = async () => {
+        try {
+            const { error } = await signIn.social({
+                provider: 'google',
+                callbackURL: '/',
+            });
+
+            if (error) {
+                console.log(error.message || 'Google sign-in failed!');
+            }
+        } catch {
+            console.log('Google sign-in failed!');
+        }
+    };
     return (
         <main className="flex min-h-screen">
             {/* Brand panel */}
@@ -152,14 +168,10 @@ const SignInPage = () => {
                         </div>
 
                         {/* Social sign in */}
+                        
                         <div className="grid grid-cols-2 gap-3">
-                            <button type="button" className="btn btn-outline">
-                                <svg aria-hidden className="size-4" viewBox="0 0 24 24">
-                                    <path
-                                        fill="currentColor"
-                                        d="M21.35 11.1H12v2.9h5.35c-.5 2.5-2.6 3.9-5.35 3.9a6 6 0 1 1 0-12c1.5 0 2.85.55 3.9 1.45l2.15-2.15A9 9 0 1 0 12 21c5.2 0 9-3.6 9-9 0-.3 0-.6-.05-.9Z"
-                                    />
-                                </svg>
+                            <button onClick={signInWithGoogle} type="button" className="btn btn-outline">
+                                
                                 Google
                             </button>
                             <button type="button" className="btn btn-outline">

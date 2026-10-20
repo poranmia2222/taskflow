@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { todoRepository } from "@/lib/todo-repository";
+import { SAMPLE_TODOS } from "@/lib/todo-seed";
 import {
     EMPTY_FILTERS,
     filterTodos,
@@ -24,9 +25,16 @@ import {
  * components plain arrays. When the repository becomes async (database), only
  * this file changes: swap the direct calls for awaited ones and keep the same
  * return shape.
+ *
+ * Hydration note: state is seeded from the immutable `initialTodos` snapshot so
+ * the first client render always matches the server markup. The shared
+ * repository is only read after mount, via effects and event handlers.
  */
 export function useTodos(initialStatus: TodoStatus = "all") {
-    const [todos, setTodos] = useState<Todo[]>(() => todoRepository.all());
+    // Seeded from an immutable snapshot. Reading the shared repository during
+    // render would let earlier mutations leak into the hydration pass, which
+    // produces markup that does not match the server.
+    const [todos, setTodos] = useState<Todo[]>(SAMPLE_TODOS);
     const [status, setStatus] = useState<TodoStatus>(initialStatus);
     const [filters, setFilters] = useState<TodoFilters>(EMPTY_FILTERS);
 

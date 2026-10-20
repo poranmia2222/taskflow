@@ -170,3 +170,101 @@ export function getTags(todos: Todo[]): string[] {
 export function getAssignees(todos: Todo[]): string[] {
     return [...new Set(todos.map((todo) => todo.userId).filter(Boolean))].sort();
 }
+
+/** A single slice of a chart. */
+export type ChartDatum = {
+    /** Stable key, safe to use as a React key. */
+    key: string;
+    /** Human-readable label. */
+    label: string;
+    value: number;
+    /** daisyUI color token name, e.g. `"primary"`. */
+    token: string;
+};
+
+/** Accent used to color a status/priority slice. */
+export const STATUS_TOKENS: Record<TodoState, string> = {
+    pending: "warning",
+    "in-progress": "info",
+    completed: "success",
+};
+
+export const PRIORITY_TOKENS: Record<Priority, string> = {
+    high: "error",
+    medium: "warning",
+    low: "success",
+};
+
+/** Task counts per board column, ready to chart. */
+export function getStatusBreakdown(todos: Todo[]): ChartDatum[] {
+    return BOARD_COLUMNS.map((status) => ({
+        key: status,
+        label: STATUS_LABELS[status],
+        value: todos.filter((todo) => todo.status === status).length,
+        token: STATUS_TOKENS[status],
+    }));
+}
+
+/** Task counts per priority, ready to chart. */
+export function getPriorityBreakdown(todos: Todo[]): ChartDatum[] {
+    return PRIORITIES.map((priority) => ({
+        key: priority,
+        label: priority.charAt(0).toUpperCase() + priority.slice(1),
+        value: todos.filter((todo) => todo.priority === priority).length,
+        token: PRIORITY_TOKENS[priority],
+    }));
+}
+
+/** Task counts per project, heaviest first. */
+export function getProjectBreakdown(todos: Todo[]): ChartDatum[] {
+    const totals = new Map<string, number>();
+    for (const todo of todos) {
+        totals.set(todo.project, (totals.get(todo.project) ?? 0) + 1);
+    }
+
+    return [...totals.entries()]
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([project, value]) => ({
+            key: project,
+            label: project,
+            value,
+            token: "primary",
+        }));
+}
+
+/** Percentage of tasks marked completed, 0 when there are none. */
+export function getCompletionRate(todos: Todo[]): number {
+    if (todos.length === 0) return 0;
+    return Math.round(
+        (todos.filter((todo) => todo.status === "completed").length / todos.length) * 100,
+    );
+}
+
+/** Tasks with a due date that has already passed and is not completed. */
+export function getOverdueTodos(todos: Todo[], today: Date): Todo[] {
+    const startOfToday = new Date(today);
+    startOfToday.setHours(0, 0, 0, 0);
+
+    return todos.filter((todo) => {
+        if (!todo.dueDate || todo.status === "completed") return false;
+        const due = new Date(`${todo.dueDate}T00:00:00`);
+        if (Number.isNaN(due.getTime())) return false;
+        return due.getTime() < startOfToday.getTime();
+    });
+}
+
+/** Tasks due within the next `days` days, not counting completed ones. */
+export function getUpcomingTodos(todos: Todo[], days: number, today: Date): Todo[] {
+    const startOfToday = new Date(today);
+    startOfToday.setHours(0, 0, 0, 0);
+
+    const limit = new Date(startOfToday);
+    limit.setDate(limit.getDate() + days);
+
+    return todos.filter((todo) => {
+        if (!todo.dueDate || todo.status === "completed") return false;
+        const due = new Date(`${todo.dueDate}T00:00:00`);
+        if (Number.isNaN(due.getTime())) return false;
+        return due >= startOfToday && due <= limit;
+    });
+}

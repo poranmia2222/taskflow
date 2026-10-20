@@ -9,6 +9,7 @@ import { signOut, useSession } from "@/lib/auth-client";
 
 const NAV_LINKS = [
     { label: "Home", href: "/" },
+    { label: "Analytics", href: "/analytics" },
     { label: "Features", href: "/features" },
     { label: "How it Works", href: "/how-it-works" },
     { label: "Testimonials", href: "/testimonials" },

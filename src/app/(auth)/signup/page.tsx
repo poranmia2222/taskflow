@@ -1,8 +1,24 @@
 'use client'
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignUpPage = () => {
+    const [googleLoading, setGoogleLoading] = useState(false);
+    const [socialError, setSocialError] = useState<string | null>(null);
+
+    const signUpWithGoogle = async () => {
+        setSocialError(null)
+        setGoogleLoading(true)
+        const { error } = await signIn.social({
+            provider: "google",
+            callbackURL: '/'
+        })
+        if (error) {
+            setGoogleLoading(false)
+            setSocialError(error.message ?? "Could not sign up with Google. Please try again.")
+        }
+    }
 
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -215,14 +231,21 @@ const SignUpPage = () => {
                         </div>
 
                         {/* Social sign up */}
+                        {socialError && (
+                            <p role="alert" className="text-sm text-error">{socialError}</p>
+                        )}
                         <div className="grid grid-cols-2 gap-3">
-                            <button type="button" className="btn btn-outline">
+                            <button onClick={()=>signUpWithGoogle()} disabled={googleLoading} type="button" className="btn btn-outline">
+                                {googleLoading ? (
+                                    <span className="loading loading-spinner loading-sm" />
+                                ) : (
                                 <svg aria-hidden className="size-4" viewBox="0 0 24 24">
                                     <path
                                         fill="currentColor"
                                         d="M21.35 11.1H12v2.9h5.35c-.5 2.5-2.6 3.9-5.35 3.9a6 6 0 1 1 0-12c1.5 0 2.85.55 3.9 1.45l2.15-2.15A9 9 0 1 0 12 21c5.2 0 9-3.6 9-9 0-.3 0-.6-.05-.9Z"
                                     />
                                 </svg>
+                                )}
                                 Google
                             </button>
                             <button type="button" className="btn btn-outline">
