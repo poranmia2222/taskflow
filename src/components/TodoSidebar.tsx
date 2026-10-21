@@ -121,7 +121,7 @@ const TodoSidebar = ({
 
     return (
         <aside
-            className={`flex h-full min-h-screen w-72 shrink-0 flex-col gap-6 overflow-y-auto border-r border-base-200 bg-base-100 px-4 py-6 ${className}`}
+            className={`flex h-full min-h-screen w-72 shrink-0 flex-col gap-6 overflow-y-auto border-r border-base-300 bg-base-100 px-4 py-6 ${className}`}
         >
             {showLogo && (
                 <Link href="/" className="flex items-center gap-2 px-2 text-lg font-bold">
@@ -179,7 +179,7 @@ const TodoSidebar = ({
             {showProgress && (
                 <section
                     aria-label="Todo progress"
-                    className="rounded-box border border-base-200 bg-base-200/40 p-4"
+                    className="rounded-box border border-base-300 bg-base-200 p-4"
                 >
                     <div className="flex items-baseline justify-between gap-2">
                         <h2 className="text-sm font-semibold">Progress</h2>

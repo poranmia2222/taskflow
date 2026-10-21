@@ -59,10 +59,10 @@ const TaskRow = ({
 
     return (
         <li
-            className={`flex items-start gap-2 rounded-box border px-2.5 py-2 transition-colors ${
+            className={`flex items-start gap-2 rounded-box border border-base-300 bg-base-200 px-2.5 py-2 transition-colors ${
                 isFocused
-                    ? "border-primary/40 bg-primary/5"
-                    : "border-base-200 bg-base-100 hover:bg-base-200/50"
+                    ? "border-primary/40 bg-primary/10"
+                    : "hover:bg-base-300"
             }`}
         >
             <span
@@ -187,7 +187,7 @@ const UpcomingTasks = ({
     return (
         <section
             aria-label="Upcoming tasks"
-            className={`rounded-box border border-base-200 bg-base-100 p-4 shadow-sm ${className}`}
+            className={`rounded-box border border-base-300 bg-base-100 p-4 ${className}`}
         >
             <header className="flex items-center justify-between gap-2">
                 <h2 className="text-sm font-semibold">

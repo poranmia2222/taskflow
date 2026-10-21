@@ -152,7 +152,7 @@ export default function FeaturesPage() {
                     {FEATURES.map((feature) => (
                         <article
                             key={feature.title}
-                            className="card card-border bg-base-100 shadow-sm transition-shadow hover:shadow-md"
+                            className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
                         >
                             <div className="card-body gap-3 p-5">
                                 <span
@@ -209,7 +209,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Closing call to action */}
-            <section className="card mt-16 bg-primary text-primary-content">
+            <section className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25">
                 <div className="card-body items-center gap-4 p-8 text-center sm:p-12">
                     <h2 className="text-2xl font-bold sm:text-3xl">
                         Ready to get organized?

@@ -57,7 +57,7 @@ const ProfilePage = () => {
             </header>
 
             {/* Identity */}
-            <section className="card card-border bg-base-100 shadow-sm">
+            <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                 <div className="flex flex-col items-center gap-4 p-6 sm:flex-row sm:items-center">
                     <UserAvatar
                         name={user.name}
@@ -82,7 +82,7 @@ const ProfilePage = () => {
             </section>
 
             {/* Details */}
-            <section className="card card-border mt-6 bg-base-100 shadow-sm">
+            <section className="card mt-6 rounded-box border border-base-300 bg-base-100 shadow-sm">
                 <div className="card-body gap-0 p-0">
                     <h2 className="p-5 pb-3 text-sm font-semibold text-base-content/60">
                         Account details

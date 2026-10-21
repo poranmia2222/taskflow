@@ -91,8 +91,8 @@ const KanbanBoard = ({
                             }
                         }}
                         onDrop={(event) => handleDrop(event, status)}
-                        className={`flex min-h-64 flex-col gap-3 rounded-box border border-t-4 bg-base-200/50 p-3 transition-colors ${COLUMN_ACCENTS[status]} ${
-                            isOver ? "border-primary bg-primary/5" : "border-base-200"
+                        className={`flex min-h-64 flex-col gap-3 rounded-box border border-t-4 border-base-300 bg-base-200 p-3 transition-colors ${COLUMN_ACCENTS[status]} ${
+                            isOver ? "border-primary bg-primary/10" : ""
                         }`}
                     >
                         <header className="flex items-center gap-2 px-1">

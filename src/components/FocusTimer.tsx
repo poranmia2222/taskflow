@@ -89,7 +89,7 @@ const FocusTimer = ({ task = null, className = "" }: FocusTimerProps) => {
     return (
         <section
             aria-label="Focus timer"
-            className={`rounded-box border border-base-200 bg-base-100 p-4 shadow-sm ${className}`}
+            className={`rounded-box border border-base-300 bg-base-100 p-4 ${className}`}
         >
             <header className="flex items-center justify-between gap-2">
                 <h2 className="text-sm font-semibold">Focus timer</h2>
@@ -103,7 +103,7 @@ const FocusTimer = ({ task = null, className = "" }: FocusTimerProps) => {
 
             <div className="mt-3 flex flex-col items-center gap-3">
                 <div
-                    className={`radial-progress ${
+                    className={`radial-progress bg-base-200 ${
                         isRunning ? "text-primary" : "text-base-content/30"
                     }`}
                     style={

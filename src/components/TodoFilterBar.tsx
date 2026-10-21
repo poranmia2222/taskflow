@@ -33,7 +33,7 @@ const TodoFilterBar = ({
     return (
         <div
             role="search"
-            className={`flex flex-wrap items-center gap-2 rounded-box border border-base-200 bg-base-100 p-3 ${className}`}
+            className={`flex flex-wrap items-center gap-2 rounded-box border border-base-300 bg-base-100 p-3 ${className}`}
         >
             {/* Search */}
             <label className="input input-sm input-bordered flex flex-1 basis-56 items-center gap-2">

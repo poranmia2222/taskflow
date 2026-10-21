@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      data-theme="light"
+      data-theme="dark"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Applies the saved/system theme before first paint to avoid a flash. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-base-200">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

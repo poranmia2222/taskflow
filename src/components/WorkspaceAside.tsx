@@ -58,7 +58,7 @@ const WorkspaceAside = ({
     return (
         <div className={`flex flex-col gap-4 p-4 ${className}`}>
             {/* Today at a glance */}
-            <section className="rounded-box border border-base-200 bg-base-200/40 p-4">
+            <section className="border border-base-300 bg-base-200 rounded-box p-4">
                 <div className="flex items-baseline justify-between gap-2">
                     <h2 className="text-sm font-semibold">Today</h2>
                     <span className="text-xs text-base-content/60">

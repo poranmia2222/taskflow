@@ -8,7 +8,7 @@ import {
     useSyncExternalStore,
     type ReactNode,
 } from "react";
-import { isTheme, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
+import { DEFAULT_THEME, isTheme, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
 type ThemeContextValue = {
     theme: Theme;
@@ -39,21 +39,12 @@ function emit() {
 
 /** Server snapshot: the value the document is rendered with. */
 function getServerSnapshot(): Theme {
-    return "light";
+    return DEFAULT_THEME;
 }
 
 function getSnapshot(): Theme {
     const applied = document.documentElement.getAttribute("data-theme");
-    return isTheme(applied) ? applied : "light";
-}
-
-function readStoredTheme(): Theme | null {
-    try {
-        const stored = localStorage.getItem(THEME_STORAGE_KEY);
-        return isTheme(stored) ? stored : null;
-    } catch {
-        return null;
-    }
+    return isTheme(applied) ? applied : DEFAULT_THEME;
 }
 
 function persistTheme(theme: Theme) {
@@ -77,24 +68,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         setTheme(getSnapshot() === "dark" ? "light" : "dark");
     }, [setTheme]);
 
-    // Follow the OS setting while the user has not chosen a theme explicitly.
-    useEffect(() => {
-        const media = window.matchMedia("(prefers-color-scheme: dark)");
-
-        const onChange = (event: MediaQueryListEvent) => {
-            if (readStoredTheme()) return;
-
-            document.documentElement.setAttribute(
-                "data-theme",
-                event.matches ? "dark" : "light",
-            );
-            emit();
-        };
-
-        media.addEventListener("change", onChange);
-        return () => media.removeEventListener("change", onChange);
-    }, []);
-
     // Keep other tabs in sync when the choice changes elsewhere.
     useEffect(() => {
         const onStorage = (event: StorageEvent) => {
@@ -102,7 +75,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
             document.documentElement.setAttribute(
                 "data-theme",
-                isTheme(event.newValue) ? event.newValue : "light",
+                isTheme(event.newValue) ? event.newValue : DEFAULT_THEME,
             );
             emit();
         };

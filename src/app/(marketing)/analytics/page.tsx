@@ -23,7 +23,7 @@ type StatCardProps = {
 
 const StatCard = ({ label, value, hint, token }: StatCardProps) => {
     return (
-        <div className="card card-border bg-base-100 shadow-sm">
+        <div className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
             <div className="card-body gap-1 p-5">
                 <div className="flex items-center gap-2">
                     {token && (
@@ -113,7 +113,7 @@ const AnalyticsPage = () => {
             </div>
 
             {/* Progress bar */}
-            <section className="card card-border mb-6 bg-base-100 shadow-sm">
+            <section className="card mb-6 rounded-box border border-base-300 bg-base-100 shadow-sm">
                 <div className="card-body gap-3 p-5">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                         <h2 className="font-semibold">Overall progress</h2>
@@ -132,7 +132,7 @@ const AnalyticsPage = () => {
 
             {/* Charts */}
             <div className="grid gap-6 lg:grid-cols-3">
-                <section className="card card-border bg-base-100 shadow-sm">
+                <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-5 p-5">
                         <h2 className="font-semibold">By status</h2>
                         <DonutChart
@@ -143,14 +143,14 @@ const AnalyticsPage = () => {
                     </div>
                 </section>
 
-                <section className="card card-border bg-base-100 shadow-sm">
+                <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-5 p-5">
                         <h2 className="font-semibold">By priority</h2>
                         <BarChart data={priorityData} />
                     </div>
                 </section>
 
-                <section className="card card-border bg-base-100 shadow-sm">
+                <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-5 p-5">
                         <h2 className="font-semibold">By project</h2>
                         <BarChart data={projectData} />
@@ -160,7 +160,7 @@ const AnalyticsPage = () => {
 
             {/* Deadlines */}
             <div className="mt-6 grid gap-6 lg:grid-cols-2">
-                <section className="card card-border bg-base-100 shadow-sm">
+                <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-4 p-5">
                         <div className="flex items-center justify-between gap-2">
                             <h2 className="font-semibold">Needs attention</h2>
@@ -177,7 +177,7 @@ const AnalyticsPage = () => {
                                 {overdue.map((todo) => (
                                     <li
                                         key={todo.id}
-                                        className="flex items-center gap-3 rounded-box bg-base-200/60 px-3 py-2"
+                                        className="flex items-center gap-3 rounded-box border border-base-300 bg-base-200 px-3 py-2"
                                     >
                                         <span
                                             aria-hidden
@@ -199,7 +199,7 @@ const AnalyticsPage = () => {
                     </div>
                 </section>
 
-                <section className="card card-border bg-base-100 shadow-sm">
+                <section className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-4 p-5">
                         <div className="flex items-center justify-between gap-2">
                             <h2 className="font-semibold">Due this week</h2>
@@ -217,7 +217,7 @@ const AnalyticsPage = () => {
                                 {upcoming.map((todo) => (
                                     <li
                                         key={todo.id}
-                                        className="flex items-center gap-3 rounded-box bg-base-200/60 px-3 py-2"
+                                        className="flex items-center gap-3 rounded-box border border-base-300 bg-base-200 px-3 py-2"
                                     >
                                         <span className="min-w-0 flex-1 truncate text-sm">
                                             {todo.title}

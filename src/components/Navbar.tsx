@@ -39,7 +39,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="navbar sticky top-0 z-50 border-b border-base-200 bg-base-100/90 shadow-sm backdrop-blur">
+        <header className="navbar sticky top-0 z-50 border-b border-base-300 bg-base-100 px-2">
             {/* Part 1: Logo + mobile menu toggle */}
             <div className="navbar-start">
                 {/* Mobile menu */}

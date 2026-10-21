@@ -112,7 +112,7 @@ const SignUpPage = () => {
 
             {/* Form panel */}
             <section className="flex flex-1 items-center justify-center p-6 sm:p-12">
-                <div className="w-full max-w-sm">
+                <div className="w-full max-w-sm rounded-2xl border border-base-300 bg-base-100 p-8 shadow-xl">
                     <Link
                         href="/"
                         className="mb-8 flex items-center gap-2 text-xl font-bold lg:hidden"

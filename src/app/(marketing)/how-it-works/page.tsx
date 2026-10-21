@@ -166,7 +166,7 @@ export default function HowItWorksPage() {
                 <ol className="mt-8 grid gap-4 sm:grid-cols-2">
                     {STEPS.map((step) => (
                         <li key={step.title}>
-                            <article className="card card-border h-full bg-base-100 shadow-sm">
+                            <article className="card h-full rounded-box border border-base-300 bg-base-100 shadow-sm">
                                 <div className="card-body gap-3 p-5">
                                     <div className="flex items-center gap-3">
                                         <span
@@ -215,7 +215,7 @@ export default function HowItWorksPage() {
 
             {/* The loop */}
             <section aria-label="The TaskFlow loop" className="mt-16">
-                <div className="card card-border bg-base-100 shadow-sm">
+                <div className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
                     <div className="card-body gap-6 p-6 sm:p-8">
                         <div className="text-center">
                             <h2 className="text-2xl font-bold">A loop you can repeat daily</h2>
@@ -255,10 +255,10 @@ export default function HowItWorksPage() {
                     {PILLARS.map((pillar) => (
                         <article
                             key={pillar.title}
-                            className="card card-border bg-base-100 shadow-sm transition-shadow hover:shadow-md"
+                            className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
                         >
                             <div className="card-body gap-2 p-5">
-                                <span className="grid size-9 place-items-center rounded-box bg-base-200 text-base-content/70">
+                                <span className="grid size-9 place-items-center rounded-box bg-base-content/10 text-base-content/70">
                                     {pillar.icon}
                                 </span>
                                 <h3 className="card-title text-base">{pillar.title}</h3>
@@ -272,7 +272,7 @@ export default function HowItWorksPage() {
             </section>
 
             {/* Closing call to action */}
-            <section className="card mt-16 bg-primary text-primary-content">
+            <section className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25">
                 <div className="card-body items-center gap-4 p-8 text-center sm:p-12">
                     <h2 className="text-2xl font-bold sm:text-3xl">
                         Ready to run your week like this?

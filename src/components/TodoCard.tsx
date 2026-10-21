@@ -51,7 +51,7 @@ const TodoCard = ({
             draggable={draggable}
             onDragStart={(event) => onDragStart?.(event, todo.id)}
             onDragEnd={onDragEnd}
-            className={`card card-border bg-base-100 shadow-sm transition-shadow hover:shadow-md ${
+            className={`card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-xl ${
                 draggable ? "cursor-grab active:cursor-grabbing" : ""
             } ${className}`}
         >

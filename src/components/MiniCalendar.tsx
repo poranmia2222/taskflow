@@ -83,7 +83,7 @@ const MiniCalendar = ({
     return (
         <section
             aria-label="Calendar"
-            className={`rounded-box border border-base-200 bg-base-100 p-4 shadow-sm ${className}`}
+            className={`rounded-box border border-base-300 bg-base-100 p-4 ${className}`}
         >
             <header className="flex items-center justify-between gap-2">
                 <h2 className="text-sm font-semibold">
@@ -150,12 +150,12 @@ const MiniCalendar = ({
                             })}${summary ? `, ${summary.count} tasks due` : ""}`}
                             className={`relative flex h-9 items-center justify-center rounded-lg text-xs transition-colors ${
                                 isSelected
-                                    ? "bg-primary font-semibold text-primary-content"
+                                    ? "bg-primary font-semibold text-primary-content shadow-sm"
                                     : isToday
-                                      ? "bg-primary/10 font-semibold text-primary hover:bg-primary/20"
+                                      ? "bg-primary/15 font-semibold text-primary hover:bg-primary/25"
                                       : inMonth
-                                        ? "text-base-content/80 hover:bg-base-200"
-                                        : "text-base-content/30 hover:bg-base-200"
+                                        ? "text-base-content/80 hover:bg-base-content/10"
+                                        : "text-base-content/30 hover:bg-base-content/5"
                             }`}
                         >
                             <span>{cell.getDate()}</span>

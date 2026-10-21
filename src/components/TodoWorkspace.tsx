@@ -80,10 +80,10 @@ const TodoWorkspace = ({ className = "" }: TodoWorkspaceProps) => {
                 onChange={(event) => setDrawerOpen(event.target.checked)}
             />
 
-            <div className="drawer-content flex min-h-full flex-col bg-base-200/40 xl:flex-row">
+            <div className="drawer-content flex min-h-full flex-col bg-base-200 xl:flex-row">
                 <div className="flex min-w-0 flex-1 flex-col">
                     {/* Mobile header */}
-                    <header className="flex items-center gap-3 border-b border-base-200 bg-base-100 px-4 py-3 lg:hidden">
+                    <header className="flex items-center gap-3 border-b border-base-300 bg-base-100 px-4 py-3 lg:hidden">
                         <label
                             htmlFor="todo-drawer"
                             className="btn btn-ghost btn-square"
@@ -269,7 +269,7 @@ const TodoWorkspace = ({ className = "" }: TodoWorkspaceProps) => {
                     id="workspace-aside"
                     aria-label="Calendar, focus timer, and upcoming tasks"
                     inert={!isWide && !isAsideOpen}
-                    className={`fixed inset-y-0 right-0 z-40 w-80 shrink-0 overflow-y-auto border-l border-base-200 bg-base-100 transition-transform xl:sticky xl:top-16 xl:bottom-auto xl:z-auto xl:h-[calc(100dvh-4rem)] xl:translate-x-0 ${
+                    className={`fixed inset-y-0 right-0 z-40 w-80 shrink-0 overflow-y-auto border-l border-base-300 bg-base-100 transition-transform xl:sticky xl:top-16 xl:bottom-auto xl:z-auto xl:h-[calc(100dvh-4rem)] xl:translate-x-0 ${
                         isAsideOpen ? "translate-x-0" : "translate-x-full"
                     }`}
                 >

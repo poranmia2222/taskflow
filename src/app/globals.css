@@ -1,6 +1,93 @@
 @import "tailwindcss";
 
-/* Two themes only: light is the default, dark is opt-in via `data-theme`. */
+/*
+ * Themes
+ * ------
+ * Two hand-tuned daisyUI themes, both built around purple:
+ *
+ * - `dark`  the default: deep aubergine surfaces with a vivid violet accent
+ * - `light` the same palette, inverted for bright environments
+ *
+ * They replace the stock daisyUI themes, so every `base-*` and `primary` token
+ * in the app follows this palette.
+ */
+
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
+    themes: false;
+}
+
+@plugin "daisyui/theme" {
+    name: "dark";
+    default: true;
+    prefersdark: true;
+    color-scheme: dark;
+
+    --color-base-100: oklch(23% 0.035 288);
+    --color-base-200: oklch(19.5% 0.032 288);
+    --color-base-300: oklch(16.5% 0.028 288);
+    --color-base-content: oklch(95% 0.015 292);
+
+    --color-primary: oklch(64% 0.21 293);
+    --color-primary-content: oklch(98% 0.012 292);
+    --color-secondary: oklch(60% 0.2 330);
+    --color-secondary-content: oklch(98% 0.01 330);
+    --color-accent: oklch(74% 0.15 302);
+    --color-accent-content: oklch(22% 0.05 302);
+    --color-neutral: oklch(15% 0.025 288);
+    --color-neutral-content: oklch(93% 0.012 292);
+
+    --color-info: oklch(72% 0.12 240);
+    --color-info-content: oklch(20% 0.04 240);
+    --color-success: oklch(74% 0.15 155);
+    --color-success-content: oklch(20% 0.05 155);
+    --color-warning: oklch(82% 0.15 85);
+    --color-warning-content: oklch(24% 0.06 85);
+    --color-error: oklch(68% 0.19 20);
+    --color-error-content: oklch(20% 0.05 20);
+
+    --radius-selector: 0.75rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+    name: "light";
+    color-scheme: light;
+
+    --color-base-100: oklch(99% 0.006 300);
+    --color-base-200: oklch(96.5% 0.014 300);
+    --color-base-300: oklch(92% 0.022 300);
+    --color-base-content: oklch(24% 0.045 288);
+
+    --color-primary: oklch(55% 0.23 293);
+    --color-primary-content: oklch(98% 0.012 292);
+    --color-secondary: oklch(55% 0.21 330);
+    --color-secondary-content: oklch(98% 0.01 330);
+    --color-accent: oklch(62% 0.18 302);
+    --color-accent-content: oklch(98% 0.01 302);
+    --color-neutral: oklch(26% 0.04 288);
+    --color-neutral-content: oklch(96% 0.01 292);
+
+    --color-info: oklch(62% 0.14 240);
+    --color-info-content: oklch(98% 0.01 240);
+    --color-success: oklch(60% 0.15 155);
+    --color-success-content: oklch(98% 0.01 155);
+    --color-warning: oklch(75% 0.16 85);
+    --color-warning-content: oklch(22% 0.06 85);
+    --color-error: oklch(58% 0.21 20);
+    --color-error-content: oklch(98% 0.01 20);
+
+    --radius-selector: 0.75rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 }
