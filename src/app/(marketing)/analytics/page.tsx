@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
+import { useMemo } from "react";
 import BarChart from "@/components/BarChart";
 import DonutChart from "@/components/DonutChart";
+import { useToday } from "@/lib/clock";
 import { useTodos } from "@/hooks/use-todos";
 import {
     getCompletionRate,
@@ -19,25 +20,6 @@ type StatCardProps = {
     hint?: string;
     token?: string;
 };
-
-/** No-op subscription: "today" never changes while the page is open. */
-const subscribeToClock = () => () => {};
-
-/** A stable snapshot per day, so React does not re-render on every read. */
-let cachedToday: Date | null = null;
-let cachedDay = "";
-
-function getClockSnapshot(): Date | null {
-    const now = new Date();
-    const day = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-
-    if (cachedDay !== day) {
-        cachedDay = day;
-        cachedToday = now;
-    }
-
-    return cachedToday;
-}
 
 const StatCard = ({ label, value, hint, token }: StatCardProps) => {
     return (
@@ -63,14 +45,10 @@ const StatCard = ({ label, value, hint, token }: StatCardProps) => {
 const AnalyticsPage = () => {
     const { todos, counts } = useTodos();
 
-    // "Today" only exists on the client. `useSyncExternalStore` renders the
-    // server snapshot (`null`) during hydration and re-renders with the real
-    // clock afterwards, so the markup can never mismatch.
-    const today = useSyncExternalStore(
-        subscribeToClock,
-        getClockSnapshot,
-        () => null,
-    );
+    // "Today" only exists on the client. `useToday` renders the server snapshot
+    // (`null`) during hydration and re-renders with the real clock afterwards,
+    // so the markup can never mismatch.
+    const today = useToday();
 
     const statusData = getStatusBreakdown(todos);
     const priorityData = getPriorityBreakdown(todos);

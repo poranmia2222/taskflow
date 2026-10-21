@@ -64,7 +64,9 @@ const KanbanBoard = ({
         onStatusChange?.(id, status);
     };
 
-    const gridClass = columns.length === 1 ? "grid-cols-1" : "md:grid-cols-2 xl:grid-cols-3";
+    // Three columns only once the board has room for them; the right panel
+    // takes up space on wide screens.
+    const gridClass = columns.length === 1 ? "grid-cols-1" : "md:grid-cols-2 2xl:grid-cols-3";
 
     return (
         <div className={`grid gap-4 ${gridClass} ${className}`}>
