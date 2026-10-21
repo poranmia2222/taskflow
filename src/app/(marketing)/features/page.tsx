@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import Reveal from "@/components/animations/Reveal";
 
 type Feature = {
     /** daisyUI color token used for the icon chip. */
@@ -126,110 +127,134 @@ export default function FeaturesPage() {
     return (
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
             {/* Header */}
-            <header className="mx-auto max-w-2xl text-center">
-                <span className="badge badge-primary badge-soft">Features</span>
-                <h1 className="mt-4 text-4xl font-bold sm:text-5xl">
-                    Everything you need to stay on top of your work
-                </h1>
-                <p className="mt-4 text-base-content/60">
-                    TaskFlow keeps planning and doing in one place — a live board, sharp
-                    filters, and analytics that tell you where things actually stand.
-                </p>
+            <Reveal>
+                <header
+                    data-reveal
+                    className="mx-auto max-w-2xl text-center"
+                >
+                    <span className="badge badge-primary badge-soft">Features</span>
+                    <h1 className="mt-4 text-4xl font-bold sm:text-5xl">
+                        Everything you need to stay on top of your work
+                    </h1>
+                    <p className="mt-4 text-base-content/60">
+                        TaskFlow keeps planning and doing in one place — a live board, sharp
+                        filters, and analytics that tell you where things actually stand.
+                    </p>
 
-                <div className="mt-6 flex flex-wrap justify-center gap-3">
-                    <Link href="/signup" className="btn btn-primary">
-                        Get started — Free
-                    </Link>
-                    <Link href="/" className="btn btn-outline">
-                        Open the board
-                    </Link>
-                </div>
-            </header>
+                    <div className="mt-6 flex flex-wrap justify-center gap-3">
+                        <Link href="/signup" className="btn btn-primary">
+                            Get started — Free
+                        </Link>
+                        <Link href="/" className="btn btn-outline">
+                            Open the board
+                        </Link>
+                    </div>
+                </header>
+            </Reveal>
 
             {/* Feature grid */}
             <section aria-label="Product features" className="mt-14">
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {FEATURES.map((feature) => (
-                        <article
-                            key={feature.title}
-                            className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
-                        >
-                            <div className="card-body gap-3 p-5">
-                                <span
-                                    className="grid size-11 place-items-center rounded-box"
-                                    style={{
-                                        background: `color-mix(in oklab, var(--color-${feature.token}) 15%, transparent)`,
-                                        color: `var(--color-${feature.token})`,
-                                    }}
-                                >
-                                    {feature.icon}
-                                </span>
+                <Reveal stagger={0.07}>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {FEATURES.map((feature) => (
+                            <article
+                                key={feature.title}
+                                data-reveal
+                                className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
+                            >
+                                <div className="card-body gap-3 p-5">
+                                    <span
+                                        className="grid size-11 place-items-center rounded-box"
+                                        style={{
+                                            background: `color-mix(in oklab, var(--color-${feature.token}) 15%, transparent)`,
+                                            color: `var(--color-${feature.token})`,
+                                        }}
+                                    >
+                                        {feature.icon}
+                                    </span>
 
-                                <h2 className="card-title text-base">{feature.title}</h2>
-                                <p className="text-sm text-base-content/60">
-                                    {feature.description}
-                                </p>
+                                    <h2 className="card-title text-base">{feature.title}</h2>
+                                    <p className="text-sm text-base-content/60">
+                                        {feature.description}
+                                    </p>
 
-                                {feature.href && (
-                                    <div className="card-actions mt-1">
-                                        <Link
-                                            href={feature.href}
-                                            className="link link-primary text-sm font-semibold"
-                                        >
-                                            {feature.linkLabel} →
-                                        </Link>
-                                    </div>
-                                )}
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                                    {feature.href && (
+                                        <div className="card-actions mt-1">
+                                            <Link
+                                                href={feature.href}
+                                                className="link link-primary text-sm font-semibold"
+                                            >
+                                                {feature.linkLabel} →
+                                            </Link>
+                                        </div>
+                                    )}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </Reveal>
             </section>
 
             {/* How it works */}
             <section aria-label="How it works" className="mt-16">
-                <h2 className="text-center text-2xl font-bold">How it works</h2>
-                <p className="mt-2 text-center text-sm text-base-content/60">
-                    Three steps from empty board to finished work.
-                </p>
+                <Reveal stagger={0.08}>
+                    <h2 data-reveal className="text-center text-2xl font-bold">
+                        How it works
+                    </h2>
+                    <p
+                        data-reveal
+                        className="mt-2 text-center text-sm text-base-content/60"
+                    >
+                        Three steps from empty board to finished work.
+                    </p>
 
-                <ol className="mt-8 grid gap-6 sm:grid-cols-3">
-                    {STEPS.map((step, index) => (
-                        <li key={step.title} className="flex flex-col gap-3">
-                            <span className="grid size-9 place-items-center rounded-full bg-primary text-sm font-bold text-primary-content">
-                                {index + 1}
-                            </span>
-                            <h3 className="font-semibold">{step.title}</h3>
-                            <p className="text-sm text-base-content/60">
-                                {step.description}
-                            </p>
-                        </li>
-                    ))}
-                </ol>
+                    <ol className="mt-8 grid gap-6 sm:grid-cols-3">
+                        {STEPS.map((step, index) => (
+                            <li
+                                key={step.title}
+                                data-reveal
+                                className="flex flex-col gap-3"
+                            >
+                                <span className="grid size-9 place-items-center rounded-full bg-primary text-sm font-bold text-primary-content">
+                                    {index + 1}
+                                </span>
+                                <h3 className="font-semibold">{step.title}</h3>
+                                <p className="text-sm text-base-content/60">
+                                    {step.description}
+                                </p>
+                            </li>
+                        ))}
+                    </ol>
+                </Reveal>
             </section>
 
             {/* Closing call to action */}
-            <section className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25">
-                <div className="card-body items-center gap-4 p-8 text-center sm:p-12">
-                    <h2 className="text-2xl font-bold sm:text-3xl">
-                        Ready to get organized?
-                    </h2>
-                    <p className="max-w-xl text-primary-content/80">
-                        Start with the free plan and see how much lighter your week feels.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-3">
-                        <Link href="/signup" className="btn btn-secondary">
-                            Create your account
-                        </Link>
-                        <Link
-                            href="/analytics"
-                            className="btn btn-ghost text-primary-content"
-                        >
-                            Explore analytics
-                        </Link>
+            <Reveal>
+                <section
+                    data-reveal
+                    className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25"
+                >
+                    <div className="card-body items-center gap-4 p-8 text-center sm:p-12">
+                        <h2 className="text-2xl font-bold sm:text-3xl">
+                            Ready to get organized?
+                        </h2>
+                        <p className="max-w-xl text-primary-content/80">
+                            Start with the free plan and see how much lighter your week feels.
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-3">
+                            <Link href="/signup" className="btn btn-secondary">
+                                Create your account
+                            </Link>
+                            <Link
+                                href="/analytics"
+                                className="btn btn-ghost text-primary-content"
+                            >
+                                Explore analytics
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </Reveal>
         </div>
     );
 }

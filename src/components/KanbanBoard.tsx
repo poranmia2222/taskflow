@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TodoCard from "@/components/TodoCard";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { BOARD_COLUMNS, STATUS_LABELS, type Todo, type TodoState } from "@/lib/todos";
 
 const COLUMN_ACCENTS: Record<TodoState, string> = {
@@ -37,6 +38,30 @@ const KanbanBoard = ({
 }: KanbanBoardProps) => {
     const [draggingId, setDraggingId] = useState<string | null>(null);
     const [overColumn, setOverColumn] = useState<TodoState | null>(null);
+    const board = useRef<HTMLDivElement>(null);
+
+    // The columns slide in one after another the first time the board shows.
+    useGSAP(
+        () => {
+            const media = gsap.matchMedia();
+
+            media.add("(prefers-reduced-motion: no-preference)", () => {
+                if (!board.current) return;
+
+                gsap.from(board.current.children, {
+                    autoAlpha: 0,
+                    y: 16,
+                    duration: 0.45,
+                    stagger: 0.08,
+                    ease: "power3.out",
+                    // Drop the inline styles afterwards so dragging a card is
+                    // not fighting with a leftover transform.
+                    clearProps: "transform,opacity,visibility",
+                });
+            });
+        },
+        { scope: board },
+    );
 
     const handleDragStart = (event: React.DragEvent<HTMLElement>, id: string) => {
         setDraggingId(id);
@@ -69,7 +94,7 @@ const KanbanBoard = ({
     const gridClass = columns.length === 1 ? "grid-cols-1" : "md:grid-cols-2 2xl:grid-cols-3";
 
     return (
-        <div className={`grid gap-4 ${gridClass} ${className}`}>
+        <div ref={board} className={`grid gap-4 ${gridClass} ${className}`}>
             {columns.map((status) => {
                 const columnTodos = todos.filter((todo) => todo.status === status);
                 const isOver = overColumn === status;

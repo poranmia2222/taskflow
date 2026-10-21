@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import FocusTimer from "@/components/FocusTimer";
 import MiniCalendar from "@/components/MiniCalendar";
 import UpcomingTasks from "@/components/UpcomingTasks";
 import { useToday } from "@/lib/clock";
 import { toDateKey } from "@/lib/dates";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { getOverdueTodos, type Todo, type TodoState } from "@/lib/todos";
 
 type WorkspaceAsideProps = {
@@ -34,6 +35,30 @@ const WorkspaceAside = ({
     const today = useToday();
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [focusTaskId, setFocusTaskId] = useState<string | null>(null);
+    const scope = useRef<HTMLDivElement>(null);
+
+    // The panels drop in one after another. The clock arrives a tick after the
+    // first render, so the animation is tied to it and runs again once the
+    // calendar and the task list are in place.
+    useGSAP(
+        () => {
+            const media = gsap.matchMedia();
+
+            media.add("(prefers-reduced-motion: no-preference)", () => {
+                if (!scope.current) return;
+
+                gsap.from(scope.current.children, {
+                    autoAlpha: 0,
+                    y: 14,
+                    duration: 0.4,
+                    stagger: 0.08,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                });
+            });
+        },
+        { scope, dependencies: [today] },
+    );
 
     /** The task the timer is focused on. */
     const focusTask = useMemo(
@@ -56,7 +81,7 @@ const WorkspaceAside = ({
     }, [todos, today]);
 
     return (
-        <div className={`flex flex-col gap-4 p-4 ${className}`}>
+        <div ref={scope} className={`flex flex-col gap-4 p-4 ${className}`}>
             {/* Today at a glance */}
             <section className="border border-base-300 bg-base-200 rounded-box p-4">
                 <div className="flex items-baseline justify-between gap-2">

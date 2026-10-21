@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import Reveal from "@/components/animations/Reveal";
 
 type Step = {
     /** Position in the flow, used for the badge number. */
@@ -136,143 +137,172 @@ export default function HowItWorksPage() {
     return (
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8">
             {/* Header */}
-            <header className="mx-auto max-w-2xl text-center">
-                <span className="badge badge-primary badge-soft">How it works</span>
-                <h1 className="mt-4 text-4xl font-bold sm:text-5xl">
-                    From a messy to-do list to a finished day
-                </h1>
-                <p className="mt-4 text-base-content/60">
-                    TaskFlow turns work into four simple moves: capture it, slice it,
-                    ship it, and learn from it. No configuration, no setup calls.
-                </p>
+            <Reveal>
+                <header
+                    data-reveal
+                    className="mx-auto max-w-2xl text-center"
+                >
+                    <span className="badge badge-primary badge-soft">How it works</span>
+                    <h1 className="mt-4 text-4xl font-bold sm:text-5xl">
+                        From a messy to-do list to a finished day
+                    </h1>
+                    <p className="mt-4 text-base-content/60">
+                        TaskFlow turns work into four simple moves: capture it, slice it,
+                        ship it, and learn from it. No configuration, no setup calls.
+                    </p>
 
-                <div className="mt-6 flex flex-wrap justify-center gap-3">
-                    <Link href="/" className="btn btn-primary">
-                        Open the board
-                    </Link>
-                    <Link href="/features" className="btn btn-outline">
-                        See all features
-                    </Link>
-                </div>
-            </header>
+                    <div className="mt-6 flex flex-wrap justify-center gap-3">
+                        <Link href="/" className="btn btn-primary">
+                            Open the board
+                        </Link>
+                        <Link href="/features" className="btn btn-outline">
+                            See all features
+                        </Link>
+                    </div>
+                </header>
+            </Reveal>
 
             {/* Steps */}
             <section aria-label="How TaskFlow works" className="mt-14">
-                <h2 className="text-center text-2xl font-bold">Four steps, one board</h2>
-                <p className="mt-2 text-center text-sm text-base-content/60">
-                    The same loop every day — it gets faster the more you use it.
-                </p>
+                <Reveal stagger={0.08}>
+                    <h2 data-reveal className="text-center text-2xl font-bold">
+                        Four steps, one board
+                    </h2>
+                    <p
+                        data-reveal
+                        className="mt-2 text-center text-sm text-base-content/60"
+                    >
+                        The same loop every day — it gets faster the more you use it.
+                    </p>
 
-                <ol className="mt-8 grid gap-4 sm:grid-cols-2">
-                    {STEPS.map((step) => (
-                        <li key={step.title}>
-                            <article className="card h-full rounded-box border border-base-300 bg-base-100 shadow-sm">
-                                <div className="card-body gap-3 p-5">
-                                    <div className="flex items-center gap-3">
-                                        <span
-                                            className="grid size-11 shrink-0 place-items-center rounded-box"
-                                            style={{
-                                                background: `color-mix(in oklab, var(--color-${step.token}) 15%, transparent)`,
-                                                color: `var(--color-${step.token})`,
-                                            }}
-                                        >
-                                            {step.icon}
-                                        </span>
-                                        <div className="min-w-0">
-                                            <span className="text-xs font-semibold uppercase tracking-wide text-base-content/50">
-                                                Step {step.number}
-                                            </span>
-                                            <h3 className="truncate font-semibold">
-                                                {step.title}
-                                            </h3>
-                                        </div>
-                                    </div>
-
-                                    <p className="text-sm text-base-content/70">
-                                        {step.summary}
-                                    </p>
-
-                                    <ul className="mt-1 space-y-1.5">
-                                        {step.details.map((detail) => (
-                                            <li
-                                                key={detail}
-                                                className="flex gap-2 text-sm text-base-content/60"
+                    <ol className="mt-8 grid gap-4 sm:grid-cols-2">
+                        {STEPS.map((step) => (
+                            <li key={step.title} data-reveal>
+                                <article className="card h-full rounded-box border border-base-300 bg-base-100 shadow-sm">
+                                    <div className="card-body gap-3 p-5">
+                                        <div className="flex items-center gap-3">
+                                            <span
+                                                className="grid size-11 shrink-0 place-items-center rounded-box"
+                                                style={{
+                                                    background: `color-mix(in oklab, var(--color-${step.token}) 15%, transparent)`,
+                                                    color: `var(--color-${step.token})`,
+                                                }}
                                             >
-                                                <span
-                                                    aria-hidden
-                                                    className="mt-2 size-1.5 shrink-0 rounded-full bg-base-content/40"
-                                                />
-                                                {detail}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </article>
-                        </li>
-                    ))}
-                </ol>
+                                                {step.icon}
+                                            </span>
+                                            <div className="min-w-0">
+                                                <span className="text-xs font-semibold uppercase tracking-wide text-base-content/50">
+                                                    Step {step.number}
+                                                </span>
+                                                <h3 className="truncate font-semibold">
+                                                    {step.title}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        <p className="text-sm text-base-content/70">
+                                            {step.summary}
+                                        </p>
+
+                                        <ul className="mt-1 space-y-1.5">
+                                            {step.details.map((detail) => (
+                                                <li
+                                                    key={detail}
+                                                    className="flex gap-2 text-sm text-base-content/60"
+                                                >
+                                                    <span
+                                                        aria-hidden
+                                                        className="mt-2 size-1.5 shrink-0 rounded-full bg-base-content/40"
+                                                    />
+                                                    {detail}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </article>
+                            </li>
+                        ))}
+                    </ol>
+                </Reveal>
             </section>
 
             {/* The loop */}
             <section aria-label="The TaskFlow loop" className="mt-16">
-                <div className="card rounded-box border border-base-300 bg-base-100 shadow-sm">
-                    <div className="card-body gap-6 p-6 sm:p-8">
-                        <div className="text-center">
-                            <h2 className="text-2xl font-bold">A loop you can repeat daily</h2>
-                            <p className="mt-2 text-sm text-base-content/60">
-                                Finish the week knowing exactly what moved and what
-                                slipped.
-                            </p>
-                        </div>
+                <Reveal>
+                    <div
+                        data-reveal
+                        className="card rounded-box border border-base-300 bg-base-100 shadow-sm"
+                    >
+                        <div className="card-body gap-6 p-6 sm:p-8">
+                            <div className="text-center">
+                                <h2 className="text-2xl font-bold">A loop you can repeat daily</h2>
+                                <p className="mt-2 text-sm text-base-content/60">
+                                    Finish the week knowing exactly what moved and what
+                                    slipped.
+                                </p>
+                            </div>
 
-                        <ul className="steps steps-horizontal w-full">
-                            {LOOP.map((stage) => (
-                                <li
-                                    key={stage.label}
-                                    className="step step-primary text-center"
-                                >
-                                    <span className="text-sm font-semibold">
-                                        {stage.label}
-                                    </span>
-                                    <span className="block text-xs font-normal text-base-content/60">
-                                        {stage.detail}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
+                            <ul className="steps steps-horizontal w-full">
+                                {LOOP.map((stage) => (
+                                    <li
+                                        key={stage.label}
+                                        className="step step-primary text-center"
+                                    >
+                                        <span className="text-sm font-semibold">
+                                            {stage.label}
+                                        </span>
+                                        <span className="block text-xs font-normal text-base-content/60">
+                                            {stage.detail}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </Reveal>
             </section>
 
             {/* Why it works */}
             <section aria-label="Why it works" className="mt-16">
-                <h2 className="text-center text-2xl font-bold">Why it works</h2>
-                <p className="mt-2 text-center text-sm text-base-content/60">
-                    Built around the habits that keep projects moving.
-                </p>
+                <Reveal stagger={0.08}>
+                    <h2 data-reveal className="text-center text-2xl font-bold">
+                        Why it works
+                    </h2>
+                    <p
+                        data-reveal
+                        className="mt-2 text-center text-sm text-base-content/60"
+                    >
+                        Built around the habits that keep projects moving.
+                    </p>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    {PILLARS.map((pillar) => (
-                        <article
-                            key={pillar.title}
-                            className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
-                        >
-                            <div className="card-body gap-2 p-5">
-                                <span className="grid size-9 place-items-center rounded-box bg-base-content/10 text-base-content/70">
-                                    {pillar.icon}
-                                </span>
-                                <h3 className="card-title text-base">{pillar.title}</h3>
-                                <p className="text-sm text-base-content/60">
-                                    {pillar.description}
-                                </p>
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        {PILLARS.map((pillar) => (
+                            <article
+                                key={pillar.title}
+                                data-reveal
+                                className="card rounded-box border border-base-300 bg-base-100 shadow-sm transition-shadow hover:shadow-md"
+                            >
+                                <div className="card-body gap-2 p-5">
+                                    <span className="grid size-9 place-items-center rounded-box bg-base-content/10 text-base-content/70">
+                                        {pillar.icon}
+                                    </span>
+                                    <h3 className="card-title text-base">{pillar.title}</h3>
+                                    <p className="text-sm text-base-content/60">
+                                        {pillar.description}
+                                    </p>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </Reveal>
             </section>
 
             {/* Closing call to action */}
-            <section className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25">
+            <Reveal>
+                <section
+                    data-reveal
+                    className="card mt-16 bg-primary text-primary-content shadow-2xl shadow-primary/25"
+                >
                 <div className="card-body items-center gap-4 p-8 text-center sm:p-12">
                     <h2 className="text-2xl font-bold sm:text-3xl">
                         Ready to run your week like this?
@@ -293,7 +323,8 @@ export default function HowItWorksPage() {
                         </Link>
                     </div>
                 </div>
-            </section>
+                </section>
+            </Reveal>
         </div>
     );
 }

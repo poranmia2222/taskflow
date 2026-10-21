@@ -5,9 +5,14 @@ import KanbanBoard from "@/components/KanbanBoard";
 import TaskFormModal from "@/components/TaskFormModal";
 import TodoFilterBar from "@/components/TodoFilterBar";
 import TodoSidebar from "@/components/TodoSidebar";
+import WelcomeBanner from "@/components/WelcomeBanner";
 import WorkspaceAside from "@/components/WorkspaceAside";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useTodos } from "@/hooks/use-todos";
+import {
+    useSidebarCollapsed,
+    toggleSidebarCollapsed,
+} from "@/lib/sidebar";
 import {
     BOARD_COLUMNS,
     STATUS_LABELS,
@@ -29,6 +34,15 @@ const TodoWorkspace = ({ className = "" }: TodoWorkspaceProps) => {
 
     /** The right panel is docked next to the board on wide screens. */
     const isWide = useMediaQuery("(min-width: 1280px)");
+
+    /** The left panel is docked next to the board from the `lg` breakpoint up. */
+    const isDocked = useMediaQuery("(min-width: 1024px)");
+
+    /** Whether the visitor folded the left sidebar down to its icon rail. */
+    const isSidebarCollapsed = useSidebarCollapsed();
+
+    /** Below `lg` the sidebar is a slide-over, so it always stays expanded. */
+    const isSidebarFolded = isDocked && isSidebarCollapsed;
 
     const {
         todos,
@@ -115,6 +129,12 @@ const TodoWorkspace = ({ className = "" }: TodoWorkspaceProps) => {
 
                     <main className="min-w-0 flex-1 px-4 py-8 sm:px-8">
                         <div className="mx-auto max-w-6xl">
+                            <WelcomeBanner
+                                todos={todos}
+                                onCreateTask={() => setCreateOpen(true)}
+                                className="mb-6"
+                            />
+
                             <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
                                 <div>
                                     <p className="text-sm font-medium text-primary">
@@ -294,6 +314,8 @@ const TodoWorkspace = ({ className = "" }: TodoWorkspaceProps) => {
                         setStatus(next);
                         setDrawerOpen(false);
                     }}
+                    collapsed={isSidebarFolded}
+                    onToggleCollapsed={toggleSidebarCollapsed}
                     className="min-h-0"
                 />
             </div>

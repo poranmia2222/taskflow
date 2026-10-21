@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import type { Todo } from "@/lib/todos";
 
 /** Selectable session lengths, in minutes. */
@@ -34,6 +35,29 @@ const FocusTimer = ({ task = null, className = "" }: FocusTimerProps) => {
 
     /** Timestamp the current session ends at, while it is running. */
     const endsAtRef = useRef<number | null>(null);
+
+    /** The ring that breathes while a session is running. */
+    const ringRef = useRef<HTMLDivElement>(null);
+
+    // A slow pulse hints that the clock is live.
+    useGSAP(
+        () => {
+            if (!isRunning) return;
+
+            const media = gsap.matchMedia();
+
+            media.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.to(ringRef.current, {
+                    scale: 1.04,
+                    duration: 1.5,
+                    ease: "sine.inOut",
+                    repeat: -1,
+                    yoyo: true,
+                });
+            });
+        },
+        { dependencies: [isRunning] },
+    );
 
     useEffect(() => {
         if (!isRunning) return;
@@ -103,6 +127,7 @@ const FocusTimer = ({ task = null, className = "" }: FocusTimerProps) => {
 
             <div className="mt-3 flex flex-col items-center gap-3">
                 <div
+                    ref={ringRef}
                     className={`radial-progress bg-base-200 ${
                         isRunning ? "text-primary" : "text-base-content/30"
                     }`}
