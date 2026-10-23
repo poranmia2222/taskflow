@@ -104,8 +104,7 @@ const WelcomeBanner = ({
           ).length
         : 0;
 
-    const firstName =
-        session?.user?.name?.split(" ")[0]?.trim() || "there";
+    const firstName = session?.user?.name
 
     const greeting = today ? getGreeting(today.getHours()) : "Welcome back";
     const dateLabel = today

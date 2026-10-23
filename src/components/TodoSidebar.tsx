@@ -165,20 +165,6 @@ const TodoSidebar = ({
                     collapsed ? "flex-col items-center gap-3" : "items-center gap-2"
                 }`}
             >
-                {showLogo && (
-                    <Link
-                        href="/"
-                        aria-label="TaskFlow home"
-                        className={`flex items-center text-lg font-bold ${
-                            collapsed ? "justify-center" : "flex-1 gap-2 px-2"
-                        }`}
-                    >
-                        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-sm text-primary-content">
-                            ✓
-                        </span>
-                        {!collapsed && <span className="truncate">TaskFlow</span>}
-                    </Link>
-                )}
 
                 {onToggleCollapsed && (
                     <button
@@ -187,7 +173,7 @@ const TodoSidebar = ({
                         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                         aria-expanded={!collapsed}
                         /* The sidebar is only docked from the `lg` breakpoint up. */
-                        className="btn btn-ghost btn-square btn-sm hidden shrink-0 lg:inline-flex"
+                        className={`btn btn-ghost btn-square btn-sm hidden shrink-0 lg:inline-flex ${collapsed? "":"ml-55"}`}
                     >
                         {collapsed ? CHEVRON_RIGHT : CHEVRON_LEFT}
                     </button>
